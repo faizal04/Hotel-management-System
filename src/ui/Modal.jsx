@@ -1,3 +1,4 @@
+import { cloneElement, createContext, useContext, useState } from "react";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 // import ModalCabin from "../features/cabins/ModalCabin";
@@ -51,15 +52,32 @@ const Button = styled.button`
   }
 `;
 //eslint-disable-next-line
-function Modal({ children, close }) {
+const ModalContext = createContext();
+//eslint-disable-next-line
+function Modal({ children }) {
+  const [openName, setOpenName] = useState("");
+  const open = setOpenName;
+  const close = () => setOpenName("");
+  return (
+    <ModalContext.Provider value={{ openName, close, open }}>
+      {children}
+    </ModalContext.Provider>
+  );
+}
+
+function Open({ children, opens: opensWindowName }) {
+  const { open } = useContext(ModalContext);
+  return cloneElement(children, { onClick: () => open(opensWindowName) });
+}
+//eslint-disable-next-line
+function Window({ children, name }) {
+  const { openName, close } = useContext(ModalContext);
+  if (name !== openName) return null;
+
   return (
     <Overlay>
       <StyledModal>
-        <Button
-          onClick={() => {
-            close(false);
-          }}
-        >
+        <Button onClick={close}>
           <HiXMark />
         </Button>
         {children}
@@ -67,5 +85,7 @@ function Modal({ children, close }) {
     </Overlay>
   );
 }
+Modal.Open = Open;
+Modal.Window = Window;
 
 export default Modal;
