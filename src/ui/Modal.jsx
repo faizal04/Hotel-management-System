@@ -1,6 +1,7 @@
 import { cloneElement, createContext, useContext, useState } from "react";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
+import useOutsideClick from "../hooks/useOutsideClick";
 // import ModalCabin from "../features/cabins/ModalCabin";
 
 const StyledModal = styled.div`
@@ -72,16 +73,17 @@ function Open({ children, opens: opensWindowName }) {
 //eslint-disable-next-line
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
+  const ref = useOutsideClick(close, true);
   if (name !== openName) return null;
 
   return (
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={ref}>
         <Button onClick={close}>
           <HiXMark />
         </Button>
+
         <div>{cloneElement(children, { closeModal: close })}</div>
-        {/* {children} */}
       </StyledModal>
     </Overlay>
   );

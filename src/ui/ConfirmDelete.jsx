@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Button from "./Button";
 import Heading from "./Heading";
+import PropTypes from "prop-types";
 
 const StyledConfirmDelete = styled.div`
   width: 40rem;
@@ -20,7 +21,8 @@ const StyledConfirmDelete = styled.div`
   }
 `;
 
-function ConfirmDelete({ resourceName, onConfirm, disabled }) {
+//eslint-disable-next-line
+function ConfirmDelete({ resourceName, onConfirm, disabled, closeModal }) {
   return (
     <StyledConfirmDelete>
       <Heading as="h3">Delete {resourceName}</Heading>
@@ -30,10 +32,17 @@ function ConfirmDelete({ resourceName, onConfirm, disabled }) {
       </p>
 
       <div>
-        <Button variation="secondary" disabled={disabled}>
+        <Button variations="secondary" disabled={disabled} onClick={closeModal}>
           Cancel
         </Button>
-        <Button variation="danger" disabled={disabled}>
+        <Button
+          variations="danger"
+          disabled={disabled}
+          onClick={() => {
+            onConfirm();
+            closeModal();
+          }}
+        >
           Delete
         </Button>
       </div>
@@ -42,3 +51,9 @@ function ConfirmDelete({ resourceName, onConfirm, disabled }) {
 }
 
 export default ConfirmDelete;
+
+ConfirmDelete.propTypes = {
+  resourceName: PropTypes.string.isRequired,
+  onConfirm: PropTypes.func,
+  disabled: PropTypes.bool,
+};
