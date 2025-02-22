@@ -7,14 +7,16 @@ function useOutsideClick(handler, phase) {
     function () {
       function handleClick(e) {
         if (ref.current && !ref.current.contains(e.target)) {
-          console.log("e.target" + e.target);
-          console.log("ref.current" + ref.current);
           handler();
         }
       }
 
       document.addEventListener("click", handleClick, phase);
-      return () => document.removeEventListener("click", handleClick, phase);
+      document.addEventListener("scroll", handleClick, phase);
+      return () => {
+        document.removeEventListener("click", handleClick, phase);
+        document.removeEventListener("scroll", handleClick, phase);
+      };
     },
     [handler, phase]
   );
