@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 const StyledFormRow = styled.div`
   display: grid;
   align-items: center;
-  grid-template-columns: 24rem 1fr 1.2fr;
-  gap: 2.4rem;
+  /* grid-template-row: 24rem 1fr 1.2fr; */
+  gap: 1.5rem;
 
-  padding: 1.2rem 0;
+  padding: 1rem 0;
 
   &:first-child {
     padding-top: 0;
@@ -47,9 +47,9 @@ function FormRow({ label, error, children }) {
   );
 }
 FormRow.propTypes = {
-  label: PropTypes.string.isRequired, // The label for the form row
-  error: PropTypes.string, // Error message for the field, optional
-  children: PropTypes.node.isRequired, // Children elements (e.g., Input component)
+  label: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
 
 export default FormRow;

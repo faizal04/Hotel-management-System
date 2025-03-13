@@ -67,6 +67,7 @@ function BookingRow({
   };
   const navigate = useNavigate();
   const { checkout, isCheckingout } = useCheckout();
+  //eslint-disable-next-line
   const { isDeleting, deleteBooking } = useDeleteBooking();
   return (
     <Table.Row>
