@@ -19,9 +19,9 @@ function SignupForm() {
   } = useForm();
   console.log(errors);
 
-  function onSubmit({ fullname, email, password }) {
+  function onSubmit({ fullName, email, password }) {
     signup(
-      { fullname, email, password },
+      { fullName, email, password },
       {
         onSettled: reset,
       }

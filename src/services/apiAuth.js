@@ -22,13 +22,13 @@ export async function Logout() {
   const { error } = await supabase.auth.signOut();
   if (error) throw new Error(error.message);
 }
-export async function CreateUser({ fullname, email, password }) {
+export async function CreateUser({ fullName, email, password }) {
   let { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: {
-        fullname,
+        fullName,
         avatar: "",
       },
     },

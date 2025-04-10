@@ -1,4 +1,7 @@
+// import { RiCactusFill } from "react-icons/ri";
 import styled from "styled-components";
+import { useUser } from "./useUser";
+import { useNavigate } from "react-router-dom";
 
 const StyledUserAvatar = styled.div`
   display: flex;
@@ -7,6 +10,7 @@ const StyledUserAvatar = styled.div`
   font-weight: 500;
   font-size: 1.4rem;
   color: var(--color-grey-600);
+  cursor: pointer;
 `;
 
 const Avatar = styled.img`
@@ -19,3 +23,18 @@ const Avatar = styled.img`
   border-radius: 50%;
   outline: 2px solid var(--color-grey-100);
 `;
+
+function UserAvatar() {
+  const user = useUser();
+  console.log(user);
+  const { fullName, avatar } = user.user.user_metadata;
+  const navigate = useNavigate();
+  return (
+    <StyledUserAvatar onClick={() => navigate("/account")}>
+      <Avatar src={avatar || "default-user.jpg"} />
+      <span>{fullName}</span>
+    </StyledUserAvatar>
+  );
+}
+
+export default UserAvatar;
